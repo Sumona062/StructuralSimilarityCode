@@ -119,7 +119,24 @@ def similiarity(data,doc1,doc2):
 
 
 
+def findSimiliarity(dataset):
+    for i in range(len(dataset)):
+        for j in range(len(dataset)):
+            if(i<j):
+                data=preprocess(dataset,i,j)
+                similiarity(data, i, j)
+                
+            
+            
+            
+def setFile(argument,dataset):
     
+    pdfFileObj = open(argument+'.pdf', 'rb') 
+    pdfReader = PyPDF2.PdfFileReader(pdfFileObj)  
+    pageObj = pdfReader.getPage(0) 
+    dataset.append(pageObj.extractText())
+    pdfFileObj.close()
+    return dataset    
         
         
 if __name__=="__main__":
