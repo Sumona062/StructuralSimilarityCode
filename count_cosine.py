@@ -101,3 +101,50 @@ def vectorizer(corpus):
     #print(data)
     
     return data
+
+def similiarity(data,doc1,doc2):
+    
+    cos_sim=cosineSimCalc(data[0], data[1])
+    print (f"Cosine Similarity between {sys.argv[doc1+1]} and {sys.argv[doc2+1]} :{cos_sim}")
+    print()
+
+
+
+
+def findSimiliarity(dataset):
+    for i in range(len(dataset)):
+        for j in range(len(dataset)):
+            if(i<j):
+                data=preprocess(dataset,i,j)
+                similiarity(data, i, j)
+                
+            
+            
+            
+def setFile(argument,dataset):
+    
+    pdfFileObj = open(argument+'.pdf', 'rb') 
+    pdfReader = PyPDF2.PdfFileReader(pdfFileObj)  
+    pageObj = pdfReader.getPage(0) 
+    dataset.append(pageObj.extractText())
+    pdfFileObj.close()
+    return dataset
+    
+        
+        
+if __name__=="__main__":
+    
+        
+    NumofParam= len(sys.argv)
+    print("Num of Params= ",NumofParam)
+    list=sys.argv
+    dataset=[]
+     
+    for i in range(1,NumofParam,1):
+        argument=list[i].replace(' ','')
+        dataset=setFile(argument,dataset)
+        
+    
+    findSimiliarity(dataset)
+        
+   
